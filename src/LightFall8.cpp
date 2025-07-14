@@ -118,11 +118,16 @@ HRESULT CLightFall8::Rendering_D3D11(ID3D11Device* pDevice, ID3D11DeviceContext*
 	int deck = 0;
 	float fValue = 0.0f;
 
-	if (crossfader <= 0.5f) deck = 1;
-	else deck = 2;
-
-	if (crossfader <= 0.5f) fValue = 1.0f - crossfader / 0.5f;
-	else fValue = (crossfader - 0.5f) / 0.5f;
+	if (crossfader <= 0.5f) 
+	{
+		deck = 1;
+		fValue = 1.0f - crossfader / 0.5f;
+	}
+	else 
+	{
+		deck = 2;
+		fValue = (crossfader - 0.5f) / 0.5f;
+	}
 
 	alpha = (int)(fValue * 255.0f);
 
