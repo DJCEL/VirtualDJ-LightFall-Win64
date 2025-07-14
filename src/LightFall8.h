@@ -32,7 +32,7 @@ private:
 	ID3D11DeviceContext* pD3DDeviceContext;
 	ID3D11RenderTargetView* pD3DRenderTargetView;
 	TVertex8 m_Vertices[2][4];
-	TVertex8 m_DefaultVertices[4];
+	TVertex8 m_DefaultVertices[2][4];
 	bool m_Direct3D_On;
 	int m_Width;
 	int m_Height;
