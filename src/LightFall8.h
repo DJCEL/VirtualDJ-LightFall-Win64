@@ -23,7 +23,7 @@ public:
 
 private:
 	HRESULT Initialize_D3D11(ID3D11Device* pDevice);
-	HRESULT Rendering_D3D11(ID3D11Device* pDevice, ID3D11DeviceContext* pDeviceContext, ID3D11RenderTargetView* pRenderTargetView, float crossfader);
+	HRESULT Rendering_D3D11(ID3D11Device* pDevice, ID3D11DeviceContext* pDeviceContext, ID3D11RenderTargetView* pRenderTargetView, TVertex8* vertices[2], float crossfader);
 	HRESULT RenderSurface(int deck, bool bDefault);
 	void OnResizeVideo();
 	void VideoScaling(int deck);
