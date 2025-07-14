@@ -5,6 +5,8 @@
 CLightFall8::CLightFall8()
 {
 	pD3DDevice = nullptr;
+	pD3DDeviceContext = nullptr;
+	pD3DRenderTargetView = nullptr;
 	memset(m_DefaultVertices, 0, 4 * sizeof(TVertex8));
 	memset(m_Vertices, 0, 8 * sizeof(TVertex8));
 	m_Direct3D_On = false;
@@ -81,7 +83,15 @@ HRESULT VDJ_API CLightFall8::OnDraw(float crossfader)
 	//hr = GetTexture(VdjVideoEngineDirectX11, 1, (void**) &pTextureView1);
 	//hr = GetTexture(VdjVideoEngineDirectX11, 2, (void**) &pTextureView2);
 
-	hr = Compose(crossfader);
+	if (!pD3DDevice) return S_FALSE;
+
+	pD3DDevice->GetImmediateContext(&pD3DDeviceContext);
+	if (!pD3DDeviceContext) return S_FALSE;
+	
+	pD3DDeviceContext->OMGetRenderTargets(1, &pD3DRenderTargetView, nullptr);
+	if (!pD3DRenderTargetView) return S_FALSE;
+	
+	hr = Rendering_D3D11(pD3DDevice, pD3DDeviceContext, pD3DRenderTargetView, crossfader);
 
 	return hr;
 }
@@ -97,7 +107,7 @@ HRESULT CLightFall8::Initialize_D3D11(ID3D11Device* pDevice)
 	return S_OK;
 }
 //---------------------------------------------------------------------------------------------
-HRESULT CLightFall8::Compose(float crossfader)
+HRESULT CLightFall8::Rendering_D3D11(ID3D11Device* pDevice, ID3D11DeviceContext* pDeviceContext, ID3D11RenderTargetView* pRenderTargetView, float crossfader)
 {
 	HRESULT hr = S_FALSE;
 	int deck = 0;
