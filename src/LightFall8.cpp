@@ -116,15 +116,15 @@ HRESULT CLightFall8::Rendering_D3D11(ID3D11Device* pDevice, ID3D11DeviceContext*
 {
 	HRESULT hr = S_FALSE;
 	int deck = 0;
-	float compressor_rate = 0.0f;
+	float fValue = 0.0f;
 
 	if (crossfader <= 0.5f) deck = 1;
 	else deck = 2;
 
-	if (crossfader <= 0.5f) compressor_rate = 1.0f - crossfader / 0.5f;
-	else compressor_rate = (crossfader - 0.5f) / 0.5f;
+	if (crossfader <= 0.5f) fValue = 1.0f - crossfader / 0.5f;
+	else fValue = (crossfader - 0.5f) / 0.5f;
 
-	alpha = (int)(compressor_rate * 255.0f);
+	alpha = (int)(fValue * 255.0f);
 
 	vertices[deck - 1][0].color = D3DCOLOR_RGBA(255, 255, 255, alpha);
 	vertices[deck - 1][1].color = D3DCOLOR_RGBA(255, 255, 255, alpha);
