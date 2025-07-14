@@ -94,8 +94,9 @@ HRESULT VDJ_API CLightFall8::OnDraw(float crossfader)
 	if (!pD3DRenderTargetView) return S_FALSE;
 	
 	hr = Rendering_D3D11(pD3DDevice, pD3DDeviceContext, pD3DRenderTargetView, crossfader);
+	if (hr != S_OK) return S_FALSE;
 
-	return hr;
+	return S_OK;
 }
 //-----------------------------------------------------------------------
 void CLightFall8::OnResizeVideo()
