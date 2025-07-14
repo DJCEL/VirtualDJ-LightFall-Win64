@@ -137,11 +137,11 @@ HRESULT CLightFall8::Rendering_D3D11(ID3D11Device* pDevice, ID3D11DeviceContext*
 	return S_OK;
 }
 //---------------------------------------------------------------------------------------------
-HRESULT  CLightFall8::RenderSurface(int deck, bool bDefault)
+HRESULT  CLightFall8::RenderSurface(int deck, bool bDefaultVertices)
 {
 	HRESULT hr = S_OK;
 
-	if (bDefault == true)
+	if (bDefaultVertices == true)
 	{
 		hr = DrawDeck(deck, NULL); // (pass NULL to DrawDeck() to use the default vertices)
 	}
