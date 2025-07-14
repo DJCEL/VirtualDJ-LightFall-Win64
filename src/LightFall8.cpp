@@ -141,14 +141,13 @@ HRESULT  CLightFall8::RenderSurface(int deck, bool bDefault)
 {
 	HRESULT hr = S_OK;
 
-	VideoScaling(deck);
-
 	if (bDefault == true)
 	{
 		hr = DrawDeck(deck, NULL); // (pass NULL to DrawDeck() to use the default vertices)
 	}
 	else
 	{
+		VideoScaling(deck);
 		hr = DrawDeck(deck, m_Vertices[deck - 1]);
 	}
 
