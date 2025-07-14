@@ -51,8 +51,6 @@ HRESULT VDJ_API CLightFall8::OnDeviceInit()
 	hr = GetDevice(VdjVideoEngineDirectX11,(void**) &pD3DDevice);
 	if(hr!=S_OK || pD3DDevice ==nullptr) return S_FALSE;
 
-
-
 	return S_OK;
 }
 //---------------------------------------------------------------------------------------------
