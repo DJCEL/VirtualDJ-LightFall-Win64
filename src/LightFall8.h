@@ -20,6 +20,7 @@ public:
 	HRESULT VDJ_API OnDraw(float crossfader);
 
 private:
+	HRESULT Initialize_D3D11(ID3D11Device* pDevice);
 	HRESULT Compose(float crossfader);
 	HRESULT RenderSurface(int deck, bool bDefault);
 	void OnResizeVideo();
