@@ -2,7 +2,9 @@
 #define LIGHTFALL8_H
 
 #include "VdjVideo8.h"
-#include <D3D11_4.h>
+#include <d3d11.h>
+#include <atlbase.h> //we use atl for the CComPtr smart pointer, but this is optional
+
 #pragma comment (lib, "D3D11.lib")
 
 
@@ -21,12 +23,14 @@ public:
 
 private:
 	HRESULT Initialize_D3D11(ID3D11Device* pDevice);
-	HRESULT Compose(float crossfader);
+	HRESULT Rendering_D3D11(ID3D11Device* pDevice, ID3D11DeviceContext* pDeviceContext, ID3D11RenderTargetView* pRenderTargetView, float crossfader);
 	HRESULT RenderSurface(int deck, bool bDefault);
 	void OnResizeVideo();
 	void VideoScaling(int deck);
 
 	ID3D11Device* pD3DDevice;
+	CComPtr<ID3D11DeviceContext> pD3DDeviceContext;
+	CComPtr<ID3D11RenderTargetView> pD3DRenderTargetView;
 	TVertex8 m_Vertices[2][4];
 	TVertex8 m_DefaultVertices[4];
 	bool m_Direct3D_On;
