@@ -61,6 +61,8 @@ HRESULT VDJ_API CLightFall8::OnDeviceInit()
 //---------------------------------------------------------------------------------------------
 HRESULT VDJ_API CLightFall8::OnDeviceClose()
 {
+	SAFE_RELEASE_CCOMPTR(pD3DRenderTargetView);
+	SAFE_RELEASE_CCOMPTR(pD3DDeviceContext);
 	m_Direct3D_On = false;
 	return S_OK;
 }
