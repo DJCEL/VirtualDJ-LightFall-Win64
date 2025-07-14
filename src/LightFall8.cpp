@@ -131,7 +131,6 @@ HRESULT CLightFall8::Rendering_D3D11(ID3D11Device* pDevice, ID3D11DeviceContext*
 	vertices[deck - 1][3].color = D3DCOLOR_RGBA(255, 255, 255, alpha);
 
 	hr = RenderSurface(deck, false);
-
 	if (hr != S_OK) return S_FALSE;
 
 	return S_OK;
