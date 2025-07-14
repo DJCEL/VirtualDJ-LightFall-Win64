@@ -42,7 +42,10 @@ private:
 	#ifndef D3DCOLOR_RGBA
 		#define D3DCOLOR_RGBA(r,g,b,a) ((D3DCOLOR)((((a)&0xff)<<24)|(((r)&0xff)<<16)|(((g)&0xff)<<8)|((b)&0xff)))
 	#endif
-	
+
+	#ifndef SAFE_RELEASE_CCOMPTR
+	#define SAFE_RELEASE_CCOMPTR(x) { if (x!=nullptr) { x.Release(); x=nullptr; } }
+	#endif
 };
 
 #endif
