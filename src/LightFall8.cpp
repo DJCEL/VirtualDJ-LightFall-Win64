@@ -85,6 +85,7 @@ HRESULT VDJ_API CLightFall8::OnDraw(float crossfader)
 	// GetTexture() doesn't AddRef(), so we don't need to release later
 	//hr = GetTexture(VdjVideoEngineDirectX11, 1, (void**) &pTextureView1);
 	//hr = GetTexture(VdjVideoEngineDirectX11, 2, (void**) &pTextureView2);
+	//ID3D11ShaderResourceView* pDoubleTextureView[2] = { pTextureView1, pTextureView2 };
 
 	if (!pD3DDevice) return S_FALSE;
 
