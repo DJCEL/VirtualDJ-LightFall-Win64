@@ -49,8 +49,11 @@ HRESULT VDJ_API CLightFall8::OnDeviceInit()
 	m_Height = height;
 
 	hr = GetDevice(VdjVideoEngineDirectX11,(void**) &pD3DDevice);
-	if(hr!=S_OK || pD3DDevice ==nullptr) return S_FALSE;
+	if(hr!=S_OK || pD3DDevice==nullptr) return S_FALSE;
 
+	hr = Initialize_D3D11(pD3DDevice);
+	if (hr != S_OK) return S_FALSE;
+	
 	return S_OK;
 }
 //---------------------------------------------------------------------------------------------
@@ -87,6 +90,11 @@ void CLightFall8::OnResizeVideo()
 {
 	m_Width = width;
 	m_Height = height;
+}
+//-----------------------------------------------------------------------
+HRESULT CLightFall8::Initialize_D3D11(ID3D11Device* pDevice)
+{
+	return S_OK;
 }
 //---------------------------------------------------------------------------------------------
 HRESULT CLightFall8::Compose(float crossfader)
