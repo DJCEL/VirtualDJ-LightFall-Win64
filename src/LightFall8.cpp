@@ -125,10 +125,10 @@ HRESULT CLightFall8::Rendering_D3D11(ID3D11Device* pDevice, ID3D11DeviceContext*
 
 	alpha = (int)(compressor_rate * 255.0f);
 
-	m_Vertices[deck - 1][0].color = D3DCOLOR_RGBA(255, 255, 255, alpha);
-	m_Vertices[deck - 1][1].color = D3DCOLOR_RGBA(255, 255, 255, alpha);
-	m_Vertices[deck - 1][2].color = D3DCOLOR_RGBA(255, 255, 255, alpha);
-	m_Vertices[deck - 1][3].color = D3DCOLOR_RGBA(255, 255, 255, alpha);
+	vertices[deck - 1][0].color = D3DCOLOR_RGBA(255, 255, 255, alpha);
+	vertices[deck - 1][1].color = D3DCOLOR_RGBA(255, 255, 255, alpha);
+	vertices[deck - 1][2].color = D3DCOLOR_RGBA(255, 255, 255, alpha);
+	vertices[deck - 1][3].color = D3DCOLOR_RGBA(255, 255, 255, alpha);
 
 	hr = RenderSurface(deck, false);
 
