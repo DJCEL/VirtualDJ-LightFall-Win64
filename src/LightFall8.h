@@ -3,7 +3,7 @@
 
 #include "VdjVideo8.h"
 #include <d3d11.h>
-#include <atlbase.h> //we use atl for the CComPtr smart pointer, but this is optional
+#include <atlbase.h> //we use atl for the CComPtr<ID3D11xxxxxx> smart pointer, but this is optional
 
 #pragma comment (lib, "D3D11.lib")
 
