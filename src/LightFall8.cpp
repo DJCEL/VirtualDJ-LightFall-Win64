@@ -12,7 +12,7 @@ CLightFall8::CLightFall8()
 	m_Direct3D_On = false;
 	m_Width = 0;
 	m_Height = 0;
-	alpha = 255;
+	m_alpha = 255;
 }
 //---------------------------------------------------------------------------------------------
 CLightFall8::~CLightFall8()
@@ -114,6 +114,11 @@ HRESULT CLightFall8::Initialize_D3D11(ID3D11Device* pDevice)
 {
 	return S_OK;
 }
+//-----------------------------------------------------------------------
+void CLightFall8::Release_D3D11()
+{
+
+}
 //---------------------------------------------------------------------------------------------
 HRESULT CLightFall8::Rendering_D3D11(ID3D11Device* pDevice, ID3D11DeviceContext* pDeviceContext, ID3D11RenderTargetView* pRenderTargetView, TVertex8* vertices[2], float crossfader)
 {
@@ -134,10 +139,10 @@ HRESULT CLightFall8::Rendering_D3D11(ID3D11Device* pDevice, ID3D11DeviceContext*
 
 	alpha = (int)(fValue * 255.0f);
 
-	vertices[deck - 1][0].color = D3DCOLOR_RGBA(255, 255, 255, alpha);
-	vertices[deck - 1][1].color = D3DCOLOR_RGBA(255, 255, 255, alpha);
-	vertices[deck - 1][2].color = D3DCOLOR_RGBA(255, 255, 255, alpha);
-	vertices[deck - 1][3].color = D3DCOLOR_RGBA(255, 255, 255, alpha);
+	vertices[deck - 1][0].color = D3DCOLOR_RGBA(255, 255, 255, m_alpha);
+	vertices[deck - 1][1].color = D3DCOLOR_RGBA(255, 255, 255, m_alpha);
+	vertices[deck - 1][2].color = D3DCOLOR_RGBA(255, 255, 255, m_alpha);
+	vertices[deck - 1][3].color = D3DCOLOR_RGBA(255, 255, 255, m_alpha);
 
 	hr = RenderSurface(deck, false);
 	if (hr != S_OK) return S_FALSE;
