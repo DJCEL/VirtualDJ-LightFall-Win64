@@ -70,6 +70,8 @@ HRESULT VDJ_API CLightFall8::OnDeviceClose()
 HRESULT VDJ_API CLightFall8::OnDraw(float crossfader)
 {
 	HRESULT hr = S_FALSE;
+	TVertex8* vertices1 = nullptr;
+	TVertex8* vertices2 = nullptr;
 	//ID3D11ShaderResourceView *pTextureView1 = nullptr;
 	//ID3D11ShaderResourceView *pTextureView2 = nullptr;
 
@@ -78,11 +80,15 @@ HRESULT VDJ_API CLightFall8::OnDraw(float crossfader)
 		OnResizeVideo();
 	}
 
-	memcpy(m_DefaultVertices[0], GetVertices(1), 4 * sizeof(TVertex8));
-	memcpy(m_DefaultVertices[1], GetVertices(2), 4 * sizeof(TVertex8));
-
-	memcpy(m_Vertices[0], m_DefaultVertices[0], 4 * sizeof(TVertex8));
-	memcpy(m_Vertices[1], m_DefaultVertices[1], 4 * sizeof(TVertex8));
+	vertices1 = GetVertices(1);
+	vertices2 = GetVertices(2);
+	if (!vertices1 || !vertices2) return S_FALSE;
+	
+	memcpy(m_DefaultVertices[0], vertices1, 4 * sizeof(TVertex8));
+	memcpy(m_DefaultVertices[1], vertices2, 4 * sizeof(TVertex8));
+	
+	memcpy(m_Vertices[0], vertices1, 4 * sizeof(TVertex8));
+	memcpy(m_Vertices[1], vertices2, 4 * sizeof(TVertex8));
 	TVertex8* pDoubleVertices[2] = { m_Vertices[0], m_Vertices[1] };
 
 	// GetTexture() doesn't AddRef(), so we don't need to release later
