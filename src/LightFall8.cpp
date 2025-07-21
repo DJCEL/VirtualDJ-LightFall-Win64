@@ -72,8 +72,8 @@ HRESULT VDJ_API CLightFall8::OnDraw(float crossfader)
 	HRESULT hr = S_FALSE;
 	TVertex8* vertices1 = nullptr;
 	TVertex8* vertices2 = nullptr;
-	//ID3D11ShaderResourceView *pTextureView1 = nullptr;
-	//ID3D11ShaderResourceView *pTextureView2 = nullptr;
+	ID3D11ShaderResourceView *pTextureView1 = nullptr;
+	ID3D11ShaderResourceView *pTextureView2 = nullptr;
 
 	if (width != m_Width || height != m_Height)
 	{
@@ -92,9 +92,11 @@ HRESULT VDJ_API CLightFall8::OnDraw(float crossfader)
 	TVertex8* pDoubleVertices[2] = { m_Vertices[0], m_Vertices[1] };
 
 	// GetTexture() doesn't AddRef(), so we don't need to release later
-	//hr = GetTexture(VdjVideoEngineDirectX11, 1, (void**) &pTextureView1);
-	//hr = GetTexture(VdjVideoEngineDirectX11, 2, (void**) &pTextureView2);
-	//ID3D11ShaderResourceView* pDoubleTextureView[2] = { pTextureView1, pTextureView2 };
+	hr = GetTexture(VdjVideoEngineDirectX11, 1, (void**) &pTextureView1);
+	if (hr != S_OK) return S_FALSE;
+	hr = GetTexture(VdjVideoEngineDirectX11, 2, (void**) &pTextureView2);
+	if (hr != S_OK) return S_FALSE;
+	ID3D11ShaderResourceView* pDoubleTextureView[2] = { pTextureView1, pTextureView2 };
 
 	if (!pD3DDevice) return S_FALSE;
 
@@ -104,7 +106,7 @@ HRESULT VDJ_API CLightFall8::OnDraw(float crossfader)
 	pD3DDeviceContext->OMGetRenderTargets(1, &pD3DRenderTargetView, nullptr);
 	if (!pD3DRenderTargetView) return S_FALSE;
 	
-	hr = Rendering_D3D11(pD3DDevice, pD3DDeviceContext, pD3DRenderTargetView, pDoubleVertices, crossfader);
+	hr = Rendering_D3D11(pD3DDevice, pD3DDeviceContext, pD3DRenderTargetView, pDoubleVertices, pDoubleTextureView, crossfader);
 	if (hr != S_OK) return S_FALSE;
 
 	return S_OK;
@@ -126,7 +128,7 @@ void CLightFall8::Release_D3D11()
 
 }
 //---------------------------------------------------------------------------------------------
-HRESULT CLightFall8::Rendering_D3D11(ID3D11Device* pDevice, ID3D11DeviceContext* pDeviceContext, ID3D11RenderTargetView* pRenderTargetView, TVertex8* vertices[2], float crossfader)
+HRESULT CLightFall8::Rendering_D3D11(ID3D11Device* pDevice, ID3D11DeviceContext* pDeviceContext, ID3D11RenderTargetView* pRenderTargetView, TVertex8* vertices[2], ID3D11ShaderResourceView* pTextureView[2], float crossfader)
 {
 	HRESULT hr = S_FALSE;
 	//InfoTexture2D InfoRTV = {};
