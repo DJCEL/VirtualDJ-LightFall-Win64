@@ -129,6 +129,13 @@ void CLightFall8::Release_D3D11()
 HRESULT CLightFall8::Rendering_D3D11(ID3D11Device* pDevice, ID3D11DeviceContext* pDeviceContext, ID3D11RenderTargetView* pRenderTargetView, TVertex8* vertices[2], float crossfader)
 {
 	HRESULT hr = S_FALSE;
+	//InfoTexture2D InfoRTV = {};
+	//InfoTexture2D InfoSRV1 = {};
+	//InfoTexture2D InfoSRV2 = {};
+	//hr = GetInfoFromRenderTargetView(pRenderTargetView, &InfoRTV);
+	//hr = GetInfoFromShaderResourceView(pTextureView[0], &InfoSRV1);
+	//hr = GetInfoFromShaderResourceView(pTextureView[1], &InfoSRV2);
+
 	int deck = 0;
 	float fValue = 0.0f;
 
@@ -210,4 +217,82 @@ void CLightFall8::VideoScaling(int deck)
 		m_Vertices[deck - 1][2].position.y -= dy;
 		m_Vertices[deck - 1][3].position.y -= dy;
 	}
+}
+//-----------------------------------------------------------------------
+HRESULT CLightFall8::GetInfoFromShaderResourceView(ID3D11ShaderResourceView* pShaderResourceView, InfoTexture2D* info)
+{
+	HRESULT hr = S_FALSE;
+	
+	D3D11_SHADER_RESOURCE_VIEW_DESC viewDesc;
+	ZeroMemory(&viewDesc, sizeof(D3D11_SHADER_RESOURCE_VIEW_DESC));
+
+	pShaderResourceView->GetDesc(&viewDesc);
+
+	DXGI_FORMAT ViewFormat = viewDesc.Format;
+	D3D11_SRV_DIMENSION ViewDimension = viewDesc.ViewDimension;
+
+	ID3D11Resource* pResource = nullptr;
+	pShaderResourceView->GetResource(&pResource);
+	if (!pResource) return S_FALSE;
+
+	if (ViewDimension == D3D11_SRV_DIMENSION_TEXTURE2D)
+	{
+		ID3D11Texture2D* pTexture = nullptr;
+		hr = pResource->QueryInterface(__uuidof(ID3D11Texture2D), (void**)&pTexture);
+		if (hr != S_OK || !pTexture) return S_FALSE;
+
+		D3D11_TEXTURE2D_DESC textureDesc;
+		ZeroMemory(&textureDesc, sizeof(D3D11_TEXTURE2D_DESC));
+
+		pTexture->GetDesc(&textureDesc);
+
+		info->Format = textureDesc.Format;
+		info->Width = textureDesc.Width;
+		info->Height = textureDesc.Height;
+
+		SAFE_RELEASE(pTexture);
+	}
+
+	SAFE_RELEASE(pResource);
+
+	return S_OK;
+}
+//-----------------------------------------------------------------------
+HRESULT CLightFall8::GetInfoFromRenderTargetView(ID3D11RenderTargetView* pRenderTargetView,InfoTexture2D* info)
+{
+	HRESULT hr = S_FALSE;
+	
+	D3D11_RENDER_TARGET_VIEW_DESC viewDesc;
+	ZeroMemory(&viewDesc, sizeof(D3D11_RENDER_TARGET_VIEW_DESC));
+
+	pRenderTargetView->GetDesc(&viewDesc);
+
+	DXGI_FORMAT ViewFormat = viewDesc.Format;
+	D3D11_RTV_DIMENSION ViewDimension = viewDesc.ViewDimension;
+
+	ID3D11Resource* pResource = nullptr;
+	pRenderTargetView->GetResource(&pResource);
+	if (!pResource) return S_FALSE;
+
+	if (ViewDimension == D3D11_RTV_DIMENSION_TEXTURE2D)
+	{
+		ID3D11Texture2D* pTexture = nullptr;
+		hr = pResource->QueryInterface(__uuidof(ID3D11Texture2D), (void**)&pTexture);
+		if (hr != S_OK || !pTexture) return S_FALSE;
+
+		D3D11_TEXTURE2D_DESC textureDesc;
+		ZeroMemory(&textureDesc, sizeof(D3D11_TEXTURE2D_DESC));
+
+		pTexture->GetDesc(&textureDesc);
+
+		info->Format = textureDesc.Format;
+		info->Width = textureDesc.Width;
+		info->Height = textureDesc.Height;
+
+		SAFE_RELEASE(pTexture);
+	}
+
+	SAFE_RELEASE(pResource);
+
+	return S_OK;
 }
