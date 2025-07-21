@@ -193,6 +193,17 @@ void CLightFall8::VideoScaling(int deck)
 	bool b_CropVideoW,b_CropVideoH;
 	float dx,dy;
 
+#ifdef _DEBUG
+	// Get letterBoxing settings
+	HRESULT hr = S_FALSE;
+	double is_letterBoxing_bars = 0.0f;
+	double is_letterBoxing_crop = 0.0f;
+	double is_letterBoxing_zoom = 0.0f;
+	hr = GetInfo("setting 'letterBoxing' 0", &is_letterBoxing_bars);
+	hr = GetInfo("setting 'letterBoxing' 1", &is_letterBoxing_crop);
+	hr = GetInfo("setting 'letterBoxing' 2", &is_letterBoxing_zoom);
+#endif
+
 	WidthOriginalVideo = m_DefaultVertices[1].position.x - m_DefaultVertices[0].position.x;
 	HeightOriginalVideo = m_DefaultVertices[3].position.y - m_DefaultVertices[0].position.y;
 
