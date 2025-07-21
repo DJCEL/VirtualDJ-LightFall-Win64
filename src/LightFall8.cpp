@@ -106,7 +106,7 @@ HRESULT VDJ_API CLightFall8::OnDraw(float crossfader)
 	pD3DDeviceContext->OMGetRenderTargets(1, &pD3DRenderTargetView, nullptr);
 	if (!pD3DRenderTargetView) return S_FALSE;
 	
-	hr = Rendering_D3D11(pD3DDevice, pD3DDeviceContext, pD3DRenderTargetView, pDoubleVertices, pDoubleTextureView, crossfader);
+	hr = Rendering_D3D11(pD3DDevice, pD3DDeviceContext, pD3DRenderTargetView, pDoubleTextureView, pDoubleVertices, crossfader);
 	if (hr != S_OK) return S_FALSE;
 
 	return S_OK;
@@ -128,7 +128,7 @@ void CLightFall8::Release_D3D11()
 
 }
 //---------------------------------------------------------------------------------------------
-HRESULT CLightFall8::Rendering_D3D11(ID3D11Device* pDevice, ID3D11DeviceContext* pDeviceContext, ID3D11RenderTargetView* pRenderTargetView, TVertex8* vertices[2], ID3D11ShaderResourceView* pTextureView[2], float crossfader)
+HRESULT CLightFall8::Rendering_D3D11(ID3D11Device* pDevice, ID3D11DeviceContext* pDeviceContext, ID3D11RenderTargetView* pRenderTargetView, ID3D11ShaderResourceView* pTextureView[2], TVertex8* vertices[2], float crossfader)
 {
 	HRESULT hr = S_FALSE;
 	//InfoTexture2D InfoRTV = {};
