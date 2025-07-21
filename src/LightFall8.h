@@ -3,7 +3,6 @@
 
 #include "VdjVideo8.h"
 #include <d3d11.h>
-#include <atlbase.h> //we use atl for the CComPtr<ID3D11xxxxxx> smart pointer, but this is optional
 
 #pragma comment (lib, "D3D11.lib")
 
@@ -23,6 +22,7 @@ public:
 
 private:
 	HRESULT Initialize_D3D11(ID3D11Device* pDevice);
+	void	Release_D3D11();
 	HRESULT Rendering_D3D11(ID3D11Device* pDevice, ID3D11DeviceContext* pDeviceContext, ID3D11RenderTargetView* pRenderTargetView, TVertex8* vertices[2], float crossfader);
 	HRESULT RenderSurface(int deck, bool bDefaultVertices);
 	void OnResizeVideo();
@@ -36,7 +36,7 @@ private:
 	bool m_Direct3D_On;
 	int m_Width;
 	int m_Height;
-	int alpha;
+	int m_alpha;
 
 	typedef DWORD D3DCOLOR;
 	#ifndef D3DCOLOR_RGBA
@@ -47,9 +47,6 @@ private:
 	#define SAFE_RELEASE(x) { if (x!=nullptr) { x->Release(); x=nullptr; } }
 	#endif
 
-	#ifndef SAFE_RELEASE_CCOMPTR
-	#define SAFE_RELEASE_CCOMPTR(x) { if (x!=nullptr) { x.Release(); x=nullptr; } }
-	#endif
 };
 
 #endif
