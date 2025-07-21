@@ -137,7 +137,7 @@ HRESULT CLightFall8::Rendering_D3D11(ID3D11Device* pDevice, ID3D11DeviceContext*
 		fValue = (crossfader - 0.5f) / 0.5f;
 	}
 
-	alpha = (int)(fValue * 255.0f);
+	m_alpha = (int)(fValue * 255.0f);
 
 	vertices[deck - 1][0].color = D3DCOLOR_RGBA(255, 255, 255, m_alpha);
 	vertices[deck - 1][1].color = D3DCOLOR_RGBA(255, 255, 255, m_alpha);
