@@ -6,7 +6,6 @@
 
 #pragma comment (lib, "d3d11.lib")
 
-
 //-------------------------------------------------------------------------------------------
 class CLightFall8 : public IVdjPluginVideoTransition8
 {
@@ -21,12 +20,20 @@ public:
 	HRESULT VDJ_API OnDraw(float crossfader);
 
 private:
+	struct InfoTexture2D
+	{
+		UINT Width;
+		UINT Height;
+		DXGI_FORMAT Format;
+	};
 	HRESULT Initialize_D3D11(ID3D11Device* pDevice);
 	void Release_D3D11();
 	HRESULT Rendering_D3D11(ID3D11Device* pDevice, ID3D11DeviceContext* pDeviceContext, ID3D11RenderTargetView* pRenderTargetView, TVertex8* vertices[2], float crossfader);
 	HRESULT RenderSurface(int deck, bool bDefaultVertices);
 	void OnResizeVideo();
 	void VideoScaling(int deck); // For letterBoxing (bars, crop, zoom)
+	HRESULT GetInfoFromShaderResourceView(ID3D11ShaderResourceView* pShaderResourceView, InfoTexture2D *info);
+	HRESULT GetInfoFromRenderTargetView(ID3D11RenderTargetView* pRenderTargetView, InfoTexture2D* info);
 
 	ID3D11Device* pD3DDevice;
 	ID3D11DeviceContext* pD3DDeviceContext;
