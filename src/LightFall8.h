@@ -28,7 +28,7 @@ private:
 	};
 	HRESULT Initialize_D3D11(ID3D11Device* pDevice);
 	void Release_D3D11();
-	HRESULT Rendering_D3D11(ID3D11Device* pDevice, ID3D11DeviceContext* pDeviceContext, ID3D11RenderTargetView* pRenderTargetView, TVertex8* vertices[2], ID3D11ShaderResourceView* pTextureView[2], float crossfader);
+	HRESULT Rendering_D3D11(ID3D11Device* pDevice, ID3D11DeviceContext* pDeviceContext, ID3D11RenderTargetView* pRenderTargetView, ID3D11ShaderResourceView* pTextureView[2], TVertex8* vertices[2], float crossfader);
 	HRESULT RenderSurface(int deck, bool bDefaultVertices);
 	void OnResizeVideo();
 	void VideoScaling(int deck); // For letterBoxing (bars, crop, zoom)
