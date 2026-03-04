@@ -30,7 +30,7 @@ HRESULT VDJ_API CLightFall8::OnGetPluginInfo(TVdjPluginInfo8 *infos)
 	infos->Author = "DJ CEL";
 	infos->PluginName = "LightFall";
 	infos->Description = "Modify the intensity of the light during the transition";
-	infos->Flags = VDJFLAG_VIDEOTRANSITION_MIDPOINTS;
+	infos->Flags = VDJFLAG_VIDEOTRANSITION_CONTINOUS; // VDJFLAG_VIDEOTRANSITION_MIDPOINTS
 	infos->Version = "3.0.1 (64-bit)";
 	
 	return S_OK;
@@ -312,4 +312,5 @@ HRESULT CLightFall8::GetInfoFromRenderTargetView(ID3D11RenderTargetView* pRender
 
 	return S_OK;
 }
+
 
